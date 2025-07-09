@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# AI Assistant for School Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is an AI-powered assistant built with Streamlit, designed to help students and new enrollees easily find relevant information from the school website by uploading PDF documents and asking questions in natural language. It implements a Retrieval-Augmented Generation (RAG) system to process documents and return accurate, context-aware answers.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Upload and process PDF documents (first 10 pages)
+- Automatic text cleaning and chunking
+- Embedding generation and similarity search
+- Question-answering interface with context retrieval
+- Admin options for reusing or caching processed files
 
-### `npm start`
+## Project Workflow
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Below is a high-level overview of how the system works:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **User uploads a PDF** via the Streamlit interface  
+2. **Text is extracted** from the first 10 pages  
+3. The content is **cleaned and chunked**  
+4. The system checks if the file was already processed  
+   - If **not**, it generates embeddings for each chunk  
+   - If **yes**, it loads embeddings from a cache (session or JSON)  
+5. The user can **ask a question**  
+6. The question is embedded and **compared with the document chunks**  
+7. The **most similar chunks** are selected  
+8. A prompt is composed using context + question and passed to the AI model for answering
 
-### `npm test`
+## Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Python  
+- Streamlit  
+- OpenAI or LLM API (for answer generation)  
+- Sentence transformers or similar (for embeddings)  
+- JSON/session state for caching
 
-### `npm run build`
+## How to Run
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# Clone the project
+git clone https://github.com/yourusername/yourproject.git
+cd yourproject
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# (Optional) Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Install dependencies
+pip install -r requirements.txt
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Run the app
+streamlit run app.py
